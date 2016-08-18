@@ -15,7 +15,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 
 set(SOURCE_FILES
-         main.cpp common.h Compute.cpp Compute.h RequestServer/ResquestServer.cpp RequestServer/ResquestServer.h RequestServer/ConnectionManager.cpp RequestServer/ConnectionManager.h RequestServer/RequestThread.cpp RequestServer/RequestThread.h RequestServer/RequestThreadPoolManager.cpp RequestServer/RequestThreadPoolManager.h RequestServer/Semaphore.cpp RequestServer/Semaphore.h)
+         main.cpp common.h Compute.cpp Compute.h RequestServer/ResquestServer.cpp RequestServer/ResquestServer.h RequestServer/ConnectionManager.cpp RequestServer/ConnectionManager.h RequestServer/RequestThread.cpp RequestServer/RequestThread.h RequestServer/RequestThreadPoolManager.cpp RequestServer/RequestThreadPoolManager.h RequestServer/Semaphore.cpp RequestServer/Semaphore.h TaskEngine/TaskQueueManager.cpp TaskEngine/TaskQueueManager.h TaskEngine/TaskThread.cpp TaskEngine/TaskThread.h TaskEngine/Message.cpp TaskEngine/Message.h)
 
 
 add_executable(compute ${SOURCE_FILES} )

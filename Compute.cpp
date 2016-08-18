@@ -83,9 +83,12 @@ int Compute::g_InitialRequestServerThreadPoolSize;
      // Initisalising the Request server
      //*****************************************************************************************************************
      ResquestServer::InitResquestServer();
+     //*****************************************************************************************************************
+     //Initialising the task queue engine
+     //*****************************************************************************************************************
+     TaskQueueManager::InitialiseTaskQueueManager();
  }
 
 void Compute::InitialiseDefaultParameters() {
     g_ClientCertificateFilePath = REQUEST_SERVER_DEFAULT_PORT;
-
 }

@@ -5,5 +5,6 @@
 
  int main(){
      Compute::Init();
+     while(true);
      return 0;
 }

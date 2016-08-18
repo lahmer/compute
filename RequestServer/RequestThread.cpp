@@ -13,7 +13,9 @@ RequestThread::RequestThread() {
             ConnectionManager::m_ConnectionsList.get()->pop_back();
             ConnectionManager::m_ConnectionListMutex.unlock();
             //TODO::Here we add the function that this thread will execute
-            while(true);
+            //while(true);
+            std::string message = "Helko there \n";
+            boost::asio::write(*socket, boost::asio::buffer(message));
 
         }
     }));

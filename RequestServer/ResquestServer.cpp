@@ -44,5 +44,5 @@ void ResquestServer::InitResquestServer() {
     std::string response = "response \n";
     boost::asio::write(ssl_stream,boost::asio::buffer(response));*/
 
-    while(true);
+    //while(true);
 }
