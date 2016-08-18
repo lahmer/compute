@@ -9,6 +9,7 @@ TaskThread::TaskThread(const unsigned short &core) {
         LOGE<<"recieving wrong number of core "<<core;
         std::terminate();
     }
+    m_QueueSemaphore = new semaphore();
     m_CoreIndex = core;
     m_TaskThread.reset(new std::thread([this](){
         //we set the affinity to the specific core number
@@ -22,7 +23,14 @@ TaskThread::TaskThread(const unsigned short &core) {
             std::terminate();
         }
         //TODO::add the task thread function here
-        while(true);
+        while(true){
+            m_QueueSemaphore->wait();
+            m_QueueMutex.lock();
+            Message cmd = m_MessageQueue.back();
+            m_MessageQueue.pop_back();
+            m_QueueMutex.unlock();
+            while(true);
+        };
 
 
     }));
@@ -30,4 +38,11 @@ TaskThread::TaskThread(const unsigned short &core) {
 
 void TaskThread::Stop() {
     m_TaskThread->join();
+}
+
+void TaskThread::AssignTask(const Message &msg) {
+    m_QueueMutex.lock();
+    m_MessageQueue.push_back(msg);
+    m_QueueMutex.unlock();
+    m_QueueSemaphore->notify();
 }

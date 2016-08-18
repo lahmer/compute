@@ -8,9 +8,10 @@
 #include "../common.h"
 class Message {
 public:
-    Message();
+    Message(std::string msg , std::shared_ptr<sslSocket> socket);
 private:
-
+    std::string m_Command;
+    std::shared_ptr<sslSocket> m_socket;
 };
 
 

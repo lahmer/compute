@@ -15,7 +15,6 @@ private:
     boost::mutex m_mutex;
     boost::condition_variable m_condition;
     unsigned long m_count;
-
 public:
     semaphore();
     void notify();

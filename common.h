@@ -27,8 +27,10 @@ typedef boost::asio::ssl::stream<boost::asio::ip::tcp::socket> sslSocket;
 #include "RequestServer/RequestThread.h"
 #include "RequestServer/RequestThreadPoolManager.h"
 
+#include"TaskEngine/Message.h"
 #include "TaskEngine/TaskThread.h"
 #include "TaskEngine/TaskQueueManager.h"
+
 
 
 

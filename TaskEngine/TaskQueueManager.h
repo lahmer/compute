@@ -17,8 +17,12 @@ class TaskQueueManager {
     friend class Compute;
 private:
     static void InitialiseTaskQueueManager();
+    //TODO::add the system that pushes messages using this method
+    static void PushMessage(const Message& msg);
 private:
     static std::vector<std::unique_ptr<TaskThread>> m_ThreadPool;
+    static int m_index;
+    static std::mutex m_IndexMutex;
 };
 
 
