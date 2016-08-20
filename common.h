@@ -15,6 +15,9 @@
 #include <mutex>
 #include <boost/thread/condition.hpp>
 #include <boost/thread/mutex.hpp>
+#include<libvirt/libvirt-qemu.h>
+#include <tinyxml/ticpp.h>
+#include <fstream>
 
 typedef boost::asio::ssl::stream<boost::asio::ip::tcp::socket> sslSocket;
 
@@ -32,6 +35,8 @@ typedef boost::asio::ssl::stream<boost::asio::ip::tcp::socket> sslSocket;
 #include "TaskEngine/TaskQueueManager.h"
 
 
+#include "Disk Images MAnager/DiskImagesManager.h"
+#include "Disk Images MAnager/Volume.h"
 
 
 const int REQUEST_SERVER_DEFAULT_PORT = 16000;

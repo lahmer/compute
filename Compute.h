@@ -20,7 +20,7 @@ private:
     //TODO:: implement this method
     static void InitialiseDefaultParameters();
 //**********************************************************************************************************************
-//This section contains global variables used by the compute daemon
+//This section contains global variables used by all daemons
 //**********************************************************************************************************************
 public:
     static int g_RequestServerPortNumber;
@@ -30,6 +30,9 @@ public:
     static std::string g_TmpDhFilePath;
     static std::string g_ClientCertificateFilePath;
     static std::string g_RequestServerCallbackPassword;
+    static std::string g_SheepdogIpAddress;
+    static int g_SheepdogPort;
+    static std::string g_StoragePoolName;
  };
 
 

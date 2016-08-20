@@ -10,6 +10,10 @@ std::string Compute::g_TmpDhFilePath;
 std::string Compute::g_ClientCertificateFilePath;
 std::string Compute::g_RequestServerCallbackPassword;
 int Compute::g_InitialRequestServerThreadPoolSize;
+std::string Compute::g_SheepdogIpAddress;
+int Compute::g_SheepdogPort;
+std::string Compute::g_StoragePoolName;
+
 
  void Compute::Init() {
     plog::init(plog::debug, "ComputeLogFile.txt");
@@ -77,6 +81,30 @@ int Compute::g_InitialRequestServerThreadPoolSize;
          g_InitialRequestServerThreadPoolSize = temp;
      }catch (libconfig::SettingNotFoundException){
          g_InitialRequestServerThreadPoolSize = 10;
+         return;
+     }
+
+     try{
+         std::string temp = cnf.lookup("disk_images_manager_sheepdog_ip_address");
+         g_SheepdogIpAddress = temp;
+     }catch (libconfig::SettingNotFoundException){
+         g_SheepdogIpAddress = "192.168.1.104";
+         return;
+     }
+
+     try{
+         int temp = cnf.lookup("disk_images_manager_sheepdog_port");
+         g_SheepdogPort = temp;
+     }catch (libconfig::SettingNotFoundException){
+         g_SheepdogPort = 7000;
+         return;
+     }
+
+     try{
+         std::string temp = cnf.lookup("disk_images_manager_default_storage_pool_name");
+         g_StoragePoolName = temp;
+     }catch (libconfig::SettingNotFoundException){
+         g_StoragePoolName = "sheepdogstoragepool";
          return;
      }
 //**********************************************************************************************************************

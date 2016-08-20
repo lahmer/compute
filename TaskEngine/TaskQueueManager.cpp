@@ -6,12 +6,14 @@
 std::vector<std::unique_ptr<TaskThread> > TaskQueueManager::m_ThreadPool;
 int TaskQueueManager::m_index;
 std::mutex TaskQueueManager::m_IndexMutex;
+
+
 void TaskQueueManager::InitialiseTaskQueueManager() {
     for(int i = 0  ; i < std::thread::hardware_concurrency() ; i++){
         std::unique_ptr<TaskThread> th;
         th.reset(new TaskThread(i));
         m_ThreadPool.push_back(std::move(th));
-    }
+     }
 }
 
 void TaskQueueManager::PushMessage(const Message& msg) {
