@@ -5,7 +5,6 @@
 
  int main(){
      Compute::Init();
-     DiskImagesManager::InitialiseDiskImageManager();
 
      while(true);
      return 0;

@@ -6,7 +6,7 @@
 
 virConnectPtr DiskImagesManager::m_LocalHypervisorConnection;
 virStoragePoolPtr  DiskImagesManager::m_StoragePoolConnection;
-
+std::map<std::string , std::shared_ptr<Volume>> m_VolumeList;
 
 void DiskImagesManager::InitialiseDiskImageManager() {
     //establishing communication with local hypervisor
@@ -74,6 +74,12 @@ void DiskImagesManager::InitialiseDiskImageManager() {
         }
         virStoragePoolFree(m_StoragePoolConnection);
      }
+
+    //now we will refresh the storage pool to accurate results
+    RefreshStocragePool();
+    //now we fetch the available volumes in the storagepool
+    virStorageVolPtr** volumes;
+
 }
 
 std::string DiskImagesManager::getStoragePoolXmlDesc() {
@@ -103,6 +109,10 @@ std::string DiskImagesManager::getStoragePoolXmlDesc() {
     return  buff.str();
 }
 
-bool DiskImagesManager::CreateVolume(const Volume &vol) {
-
+void DiskImagesManager::RefreshStocragePool() {
+    int code = virStoragePoolRefresh(m_StoragePoolConnection,0);
+    if(code !=0){
+        LOGE<<"Error while refreshing the storagepool";
+        std::terminate();
+    }
 }

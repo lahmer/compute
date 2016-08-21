@@ -20,4 +20,4 @@ set(SOURCE_FILES
 
 add_executable(compute ${SOURCE_FILES} )
 
-TARGET_LINK_LIBRARIES(compute config++ boost_system boost_thread virt pthread crypto ssl ticpp)
+TARGET_LINK_LIBRARIES(compute config++ boost_system boost_thread virt pthread crypto ssl ticpp guestfs)

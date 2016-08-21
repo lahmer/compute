@@ -115,6 +115,10 @@ std::string Compute::g_StoragePoolName;
      //Initialising the task queue engine
      //*****************************************************************************************************************
      TaskQueueManager::InitialiseTaskQueueManager();
+     //*****************************************************************************************************************
+     //initialising the temporary disk image manager
+     //*****************************************************************************************************************
+     DiskImagesManager::InitialiseDiskImageManager();
  }
 
 void Compute::InitialiseDefaultParameters() {

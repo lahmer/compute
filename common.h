@@ -18,6 +18,7 @@
 #include<libvirt/libvirt-qemu.h>
 #include <tinyxml/ticpp.h>
 #include <fstream>
+#include<guestfs.h>
 
 typedef boost::asio::ssl::stream<boost::asio::ip::tcp::socket> sslSocket;
 
