@@ -21,7 +21,14 @@ public:
     ///This method will establish communication with the sheep dog server
     ///and retrieve all the information about the available images there
     static void InitialiseDiskImageManager();
-
+    ///This metod will create a volume
+    ///@param [in] name the name of the volume should be unique in the storagepool
+    ///@param [in] how much we allocate in the physical drive in bytes
+    ///@param [in] how much is the logical capacity of the disk
+    static bool CreateVolume(const std::string& name , const unsigned long& capacity);
+    ///This metod will delete a volume
+    ///@param [in] name the name of the volume should be unique in the storagepool
+    static bool DeleteVolume(const std::string& name);
 private:
     ///This methode will create a string containig the
     ///xml description of the storagepool defined by the configuration file

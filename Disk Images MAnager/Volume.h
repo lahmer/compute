@@ -22,8 +22,11 @@ public:
     ///@param [in] how much we allocate in the physical drive in bytes
     ///@param [in] how much is the logical capacity of the disk
     static std::string CreateVolumeXml(const std::string& name , const unsigned long& allocation , const unsigned int& capacity);
-    ///
+    ///This constructor is called to create a volume from an active connection
     Volume(const virStorageVolPtr& volumePtr);
+    ///This method will give back the name of the volume
+    static std::string GetVolumeName(const virStorageVolPtr& ptr);
+    static std::string GetVolumePath(const virStorageVolPtr& ptr);
 private:
     virStorageVolPtr m_Volume;
 };

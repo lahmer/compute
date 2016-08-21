@@ -6,7 +6,7 @@
 
 virConnectPtr DiskImagesManager::m_LocalHypervisorConnection;
 virStoragePoolPtr  DiskImagesManager::m_StoragePoolConnection;
-std::map<std::string , std::shared_ptr<Volume>> m_VolumeList;
+std::map<std::string , std::shared_ptr<Volume>> DiskImagesManager::m_VolumeList;
 
 void DiskImagesManager::InitialiseDiskImageManager() {
     //establishing communication with local hypervisor
@@ -40,6 +40,7 @@ void DiskImagesManager::InitialiseDiskImageManager() {
     if(exists){
         //we first get the pointer to the storage pool
         m_StoragePoolConnection = virStoragePoolLookupByName(m_LocalHypervisorConnection,Compute::g_StoragePoolName.c_str());
+        std::cout<<m_StoragePoolConnection<<std::endl;
         if(m_StoragePoolConnection == NULL){
             LOGE<<"can't establish connection to the storage pool "<<Compute::g_StoragePoolName;
             std::terminate();
@@ -76,10 +77,23 @@ void DiskImagesManager::InitialiseDiskImageManager() {
      }
 
     //now we will refresh the storage pool to accurate results
-    RefreshStocragePool();
+
+
+
+   // RefreshStocragePool();
+
+
+
+
+
     //now we fetch the available volumes in the storagepool
     virStorageVolPtr** volumes;
-
+    n = virStoragePoolListAllVolumes(m_StoragePoolConnection,volumes,0);
+    for (int j = 0; j < n; ++j) {
+        std::string name = Volume::GetVolumeName(**volumes);
+        std::shared_ptr<Volume> vol(new Volume(*((*(volumes))++)));
+        m_VolumeList[name] = vol;
+    }
 }
 
 std::string DiskImagesManager::getStoragePoolXmlDesc() {
@@ -115,4 +129,32 @@ void DiskImagesManager::RefreshStocragePool() {
         LOGE<<"Error while refreshing the storagepool";
         std::terminate();
     }
+}
+
+bool DiskImagesManager::CreateVolume(const std::string &name, const unsigned long &capacity) {
+    if( !(m_VolumeList.find(name) == m_VolumeList.end())){
+        std::cout<<"The volume already exists"<<std::endl;
+        return false;
+    }
+    std::shared_ptr<Volume> volume(new Volume(name,capacity,capacity));
+    if(!m_VolumeList.insert(std::make_pair(name,volume)).second){
+        LOGE<<"Unable to add the volume its already exists by this name";
+        std::terminate();
+    }
+    return true;
+}
+
+bool DiskImagesManager::DeleteVolume(const std::string &name) {
+    //RefreshStocragePool();
+    //test if the volume that we wants to create really exists
+    if(m_VolumeList.find(name) == m_VolumeList.end()){
+        LOGE<<"Trying to delete a volume that does'nt exists";
+        std::terminate();
+    }
+    std::shared_ptr<Volume> volume = m_VolumeList[name];
+    int code = virStorageVolDelete(volume->m_Volume,VIR_STORAGE_VOL_DELETE_NORMAL);
+    if(code == 0 ){
+        return true;
+    }
+    return false;
 }
