@@ -27,7 +27,7 @@ ticpp::Element HardDisk::getDeviceXml() {
     return disk;
 }
 
-InputDevice::InputDevice(const unsigned int &deviceType):m_DeviceType(deviceType) {};
+InputDevice::InputDevice(const unsigned int &deviceType):m_DeviceType(deviceType) {}
 ticpp::Element InputDevice::getDeviceXml() {
     std::string type;
     std::string bus = "usb";
@@ -52,7 +52,7 @@ ticpp::Element InputDevice::getDeviceXml() {
 
 }
 
-GraphicalDevice::GraphicalDevice(const unsigned int& GraphicalDeviceType): m_GraphicalDeviceType(GraphicalDeviceType) {};
+GraphicalDevice::GraphicalDevice(const unsigned int& GraphicalDeviceType): m_GraphicalDeviceType(GraphicalDeviceType) {}
 
 ticpp::Element GraphicalDevice::getDeviceXml() {
     ticpp::Element graphics("graphics");
@@ -81,3 +81,5 @@ ticpp::Element DeviceFactory::getXml() {
     }
     return devices;
 }
+
+DeviceFactory::DeviceFactory() {}

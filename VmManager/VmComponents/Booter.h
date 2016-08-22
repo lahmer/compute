@@ -6,6 +6,7 @@
 #define CLIOTEST_BOOTER_H
 
 #include "../../common.h"
+
 class AbstractBooter {
 public:
     ticpp::Element getXml();

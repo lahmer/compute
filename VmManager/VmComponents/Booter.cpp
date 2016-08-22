@@ -39,33 +39,36 @@ void BiosBootloader::setBootType(BootType type) {
 ticpp::Element BiosBootloader::getXml() {
     ticpp::Element os("os");
     //******************************************************************************************************************
-    ticpp::Element* type;
-    if(m_BootType == BOOT_TYPE_HVM)
-        type = new ticpp::Element("type","hvm");
+    ticpp::Element *type;
+    if (m_BootType == BOOT_TYPE_HVM)
+        type = new ticpp::Element("type", "hvm");
     else if (m_BootType == BOOT_TYPE_LINUX)
-        type = new ticpp::Element("type","linux");
+        type = new ticpp::Element("type", "linux");
     os.InsertEndChild(*type);
     //******************************************************************************************************************
-    for(auto it : m_BootDevices){
+    for (auto it : m_BootDevices) {
         ticpp::Element bootdevice("boot");
-        switch (it){
-            case BOOT_DEVICE_DISK:{
-                bootdevice.SetAttribute("dev","hd");
+        switch (it) {
+            case BOOT_DEVICE_DISK: {
+                bootdevice.SetAttribute("dev", "hd");
                 break;
             }
-            case BOOT_DEVICE_CDROM:{
-                bootdevice.SetAttribute("dev","cdrom");
+            case BOOT_DEVICE_CDROM: {
+                bootdevice.SetAttribute("dev", "cdrom");
                 break;
             }
-            default:{
-                LOGE<<"unknown bios device ";
+            default: {
+                LOGE << "unknown bios device ";
                 std::terminate();
             }
         }
     }
     //******************************************************************************************************************
-    if(m_BootMenu){
-
+    if (m_BootMenu) {
+        ticpp::Element bootMenu("bootmenu");
+        bootMenu.SetAttribute("enable", "yes");
+        bootMenu.SetAttribute("timout", m_BootMenuTimeOut);
+        os.InsertEndChild(bootMenu);
     }
-
+    return os;
 }

@@ -42,6 +42,7 @@ private:
 
 class DeviceFactory : public AbstractVmFactory{
 public:
+    DeviceFactory();
     ticpp::Element getXml();
     void PushDevice( Device* device);
 private:
