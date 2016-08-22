@@ -49,7 +49,7 @@ void DiskImagesManager::InitialiseDiskImageManager() {
         if(!virStoragePoolIsActive(m_StoragePoolConnection)){
             //TODO::fix the problem of the inability to activate the pool
             //we activate the pool
-            int code = virStoragePoolBuild(m_StoragePoolConnection,VIR_STORAGE_POOL_BUILD_NO_OVERWRITE);
+            int code = virStoragePoolCreate(m_StoragePoolConnection,0);
             if(code != 0){
                 LOGE<<"can't activate the storage pool ";
                 std::terminate();

@@ -3,19 +3,22 @@
 //
 #include "common.h"
 
- int main(){
+int main(){
      Compute::Init();
-     for (int i = 0; i < 10; ++i) {
-         if(!DiskImagesManager::CreateVolume("ilyas"+std::to_string(i),5000000)){
-             if(DiskImagesManager::DeleteVolume("ilyas"+std::to_string(i))){
-                 std::cout<<"ilyas"+std::to_string(i)<<"is deleted"<<std::endl;
-             }
-         }else{
-             std::cout<<"ilyas"+std::to_string(i)<<"is created"<<std::endl;
 
-         }
+    DeviceFactory factory;
+    factory.PushDevice(new HardDisk("ubuntu"));
+    factory.PushDevice(new GraphicalDevice(GRAPHICAL_DEVICE_VNC));
+    factory.PushDevice(new InputDevice(INPUT_DEVICE_MOUSE));
 
-     }
+    ticpp::Document doc;
+    ticpp::Node *root = doc.InsertEndChild(factory.getXml());
+
+    doc.SaveFile("temp.xml");
+    std::ifstream file("temp.xml") ;
+    std::stringstream buff ;
+    buff<<file.rdbuf();
+    std::cout<<buff.str()<<std::endl;
 
      while(true);
      return 0;

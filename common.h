@@ -40,5 +40,9 @@ typedef boost::asio::ssl::stream<boost::asio::ip::tcp::socket> sslSocket;
 #include "Disk Images MAnager/Volume.h"
 
 
+#include"VmManager/VmComponents/AbstractVmFactory.h"
+#include "VmManager/VmComponents/DeviceFactory.h"
+#include "VmManager/VmComponents/VirtualMachine.h"
+
 const int REQUEST_SERVER_DEFAULT_PORT = 16000;
 #endif //CLIOTEST_COMMON_H
